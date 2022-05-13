@@ -24,8 +24,6 @@ public class Game {
             }
             System.out.print("\n");
         }
-        System.out.println(" ");
-        System.out.println("hello görlzz");
     }
 
     //diziye eleman eklemek için yeni method olustur.
@@ -96,29 +94,29 @@ public class Game {
                 if (gameBoard[x][y] != 0)
                 {
                     int value = gameBoard[x][y];
-                    int buttomX = x + 1;
-                    while ((buttomX <= 3) && (gameBoard[buttomX][y] == 0))
+                    int bottomX = x + 1;
+                    while ((bottomX <= 3) && (gameBoard[bottomX][y] == 0))
                     {
                         //x'in 0 a eşit ve büyük olması ve üstünün boş olması.
-                        buttomX++;
+                        bottomX++;
                     }
 
-                    if (buttomX == 4)
+                    if (bottomX == 4)
                     {
                         //x in sütundaki tek eleman olması ve üstünün boş olması.
                         gameBoard[3][y] = value;
                         gameBoard[x][y] = 0;
                     }
-                    else if (gameBoard[buttomX][y] != value)
+                    else if (gameBoard[bottomX][y] != value)
                     {
                         //sütunun en üst ve en altında sayı olması ortaların boş olması.
-                        gameBoard[buttomX - 1][y] = value;
+                        gameBoard[bottomX - 1][y] = value;
                         gameBoard[x][y] = 0;
                     }
                     else
                     {
                         //2 aynı sayının toplanması durumu.
-                        gameBoard[buttomX][y] *= 2;
+                        gameBoard[bottomX][y] *= 2;
                         gameBoard[x][y] = 0;
                     }
                 }
