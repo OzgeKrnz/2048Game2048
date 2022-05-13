@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 class GUI extends JPanel implements KeyListener,Runnable {
 
 
+
     private static final long serialVersionUID = 1L;
     public static final int WIDTH = 400;
     public static final int HEIGHT = 630;
