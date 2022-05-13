@@ -25,6 +25,7 @@ public class Game {
             System.out.print("\n");
         }
         System.out.println(" ");
+        System.out.println("hello görlzz");
     }
 
     //diziye eleman eklemek için yeni method olustur.
@@ -40,7 +41,7 @@ public class Game {
                 gameBoard[randomSatir][randomSutun]=2;
                 //gameArrayList.add(gameBoard[randomSatir][randomSutun]);
             }
-             System.out.println("hello görlzz");
+
     }
 
     public void pushUp()
