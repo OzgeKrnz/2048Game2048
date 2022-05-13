@@ -10,14 +10,12 @@ public class Main {
         //gameObject.printMatris();
         //gameObject.printMatris();
 
-        for(int i=0;i<5;i++)
-        {
+        for(int i=0;i<5;i++) {
             gameObject.addComponent();
         }
 
         gameObject.printMatris();
-        for(int x =0;x<3;x++)
-        {
+        for(int x =0;x<3;x++) {
             gameObject.pushUp();
             gameObject.printMatris();
             gameObject.addComponent();

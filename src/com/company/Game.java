@@ -14,7 +14,6 @@ public class Game {
         gameBoard = new int[4][4];
 
     }
-
     // diziyi yazdıran method olustur. public olsun her yerden erişilebilir.
     public void printMatris() {
         for (int i = 0; i < gameBoard.length; i++) {

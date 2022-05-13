@@ -234,7 +234,6 @@ class GUI extends JPanel implements KeyListener,Runnable {
             tileImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
             drawImage();
         }
-
         private void drawImage() {
             Graphics2D g = (Graphics2D) tileImage.getGraphics();
         }
