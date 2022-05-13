@@ -9,7 +9,6 @@ public class Main {
         Game gameObject=new Game();
         //gameObject.printMatris();
         //gameObject.printMatris();
-        System.out.println("hello world");
         for(int i=0;i<5;i++)
         {
             gameObject.addComponent();
@@ -18,6 +17,7 @@ public class Main {
         gameObject.printMatris();
         for(int x =0;x<3;x++)
         {
+            System.out.println("hello world");
             gameObject.pushUp();
             gameObject.printMatris();
             gameObject.addComponent();
