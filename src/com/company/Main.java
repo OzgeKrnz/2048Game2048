@@ -1,6 +1,6 @@
 package com.company;
 
-import javax.swing.*;
+//import javax.swing.*;
 
 public class Main {
 
@@ -9,7 +9,7 @@ public class Main {
         Game gameObject=new Game();
         //gameObject.printMatris();
         //gameObject.printMatris();
-
+        System.out.println("hello world");
         for(int i=0;i<5;i++)
         {
             gameObject.addComponent();
