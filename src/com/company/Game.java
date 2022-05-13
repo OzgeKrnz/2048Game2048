@@ -9,7 +9,6 @@ public class Game {
     private int[][] gameBoard;
     boolean c;
 
-
     private Random randomIndexler = new Random();
 
 
