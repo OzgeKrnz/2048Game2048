@@ -17,13 +17,13 @@ public class Main {
         gameObject.printMatris();
         for(int x =0;x<3;x++)
         {
-            System.out.println("hello world");
             gameObject.pushUp();
             gameObject.printMatris();
             gameObject.addComponent();
             gameObject.printMatris();
             gameObject.pushDown();
             gameObject.printMatris();
+            System.out.println("hello world");
         }
 
     }
