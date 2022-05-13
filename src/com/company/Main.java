@@ -8,15 +8,6 @@ public class Main {
 
         GUI gui=new GUI();
 
-        JFrame window = new JFrame("2048");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        window.setResizable(false);
-        window.add(gui);
-        window.pack();
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
-
         Game gameObject=new Game();
 
 
