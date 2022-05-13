@@ -16,14 +16,25 @@ public class Main {
         }
 
         gameObject.printMatris();
+
         for(int x =0;x<3;x++)
         {
             gameObject.pushUp();
             gameObject.printMatris();
+            System.out.println("\n");
             gameObject.addComponent();
             gameObject.printMatris();
             gameObject.pushDown();
             gameObject.printMatris();
+            gameObject.addComponent();
+            System.out.println("\n");
+            gameObject.pushLeft();
+            gameObject.printMatris();
+            gameObject.addComponent();
+            System.out.println("\n");
+            gameObject.pushRight();
+            gameObject.printMatris();
+
         }
 
     }
