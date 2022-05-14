@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
 	// let's get started girlss
         Game gameObject=new Game();
+        GUI gui=new GUI();
         //gameObject.printMatris();
         //gameObject.printMatris();
 
