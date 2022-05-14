@@ -7,7 +7,6 @@ import java.util.Random.*;
 
 public class Game {
     private int[][] gameBoard;
-
     private Random randomIndexler = new Random();
 
     public Game() {

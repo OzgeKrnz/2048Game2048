@@ -15,7 +15,6 @@ public class Main {
             gameObject.addComponent();
         }
 
-
         gameObject.printMatris();
         for(int x =0;x<3;x++) {
             gameObject.pushUp();
