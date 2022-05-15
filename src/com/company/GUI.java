@@ -108,6 +108,7 @@ class GUI extends JPanel implements KeyListener,Runnable {
             graphics.setColor(new Color(114, 107, 107));
             graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
 
+            graphics.setColor(Color.lightGray);
             int [][]board=game.getGameBoard();
 
             graphics.drawRect(0,0,97,97);

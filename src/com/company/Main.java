@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Game gameObject=new Game();
         GUI gui=new GUI();
+        gui.setBounds(0,0,100,100);
         //Tile t=new Tile();
         //t.setVisible(true);
 
