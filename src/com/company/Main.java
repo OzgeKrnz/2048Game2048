@@ -1,15 +1,17 @@
 package com.company;
 
+import com.company.GUI;
+
 import javax.swing.*;
 
 public class Main {
 
     public static void main(String[] args) {
-	// let's get started girlss
         Game gameObject=new Game();
         GUI gui=new GUI();
-        //gameObject.printMatris();
-        //gameObject.printMatris();
+        //Tile t=new Tile();
+        //t.setVisible(true);
+
 
         for(int i=0;i<5;i++) {
             gameObject.addComponent();
@@ -27,20 +29,4 @@ public class Main {
 
     }
 }
-
-//gameboard olsuturuldu.
-//satır- sütün 4*4luk olusturduk.
-//matrisi yazdıran method.
-
-/*
-class GameFrame extends JFrame {
-
-    private int row;
-    private int column;
-
-    public GameFrame(){
-        super();
-    }
-}
-*/
 

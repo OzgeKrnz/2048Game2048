@@ -7,32 +7,23 @@ import java.awt.image.BufferedImage;
 
 class GUI extends JPanel implements KeyListener,Runnable {
 
+    Game game;
+
     private static final long serialVersionUID = 1L;
-    public static final int WIDTH = 400;
-    public static final int HEIGHT = 630;
-    public static final int gameBoardSize = 500;
-    public static final int MARGIN = 16;
+    public static final int WIDTH = 440;
+    public static final int HEIGHT = 520;
+    public static final int gameBoardSize = 400;
+    public static final int MARGIN = 20;
     public static final Font main = new Font("Consolas", Font.PLAIN, 40);
 
-    /*
-        JFrame window = new JFrame("2048");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        window.setResizable(false);
-
-        window.add(gui);
-        window.pack();
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
-
-     */
     JFrame window;
     GUI gui;
 
     //arkaplan rengi
     Color color = new Color(213, 209, 209);
 
-    private Thread game;
+    //private Thread game;
     private boolean running;
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 
@@ -40,9 +31,16 @@ class GUI extends JPanel implements KeyListener,Runnable {
     private long elapsed;
     private boolean set;
 
+
     public GUI() {
-        GameBoard gb=new GameBoard();
-        //gb.paintComponent();
+       GameBoard gb = new GameBoard();
+       game=new Game();
+
+      /*  Tile t=new Tile();
+        t.setBounds(0,0,30,30);
+        t.setVisible(true);
+
+       */
 
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,7 +51,7 @@ class GUI extends JPanel implements KeyListener,Runnable {
 
         JPanel northPanel = new JPanel();
         northPanel.setLayout(new GridLayout());
-        northPanel.setPreferredSize(new Dimension(WIDTH, 112));
+        northPanel.setPreferredSize(new Dimension(WIDTH, 100));
 
 
         JLabel gameLabel = new JLabel("2048", SwingConstants.CENTER); //merkeze 2048 geliyor.
@@ -82,157 +80,103 @@ class GUI extends JPanel implements KeyListener,Runnable {
         window.getContentPane().add(westBuffer, BorderLayout.WEST);
         window.getContentPane().add(eastBuffer, BorderLayout.EAST);
         window.getContentPane().add(southBuffer, BorderLayout.SOUTH);
-
         window.getContentPane().add(gb, BorderLayout.CENTER);
-
         window.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
         window.pack();
         window.setVisible(true);
     }
 
-    static class GameBoard extends JPanel{
-        protected void paintComponent(Graphics graphics) {
-            graphics.setColor(new Color(114, 107, 107));
-            graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
-        }
-    }
-
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
     }
 
     @Override
     public void run() {
-
     }
 
-    /*
-        private void update(){
+    class GameBoard extends JPanel {
 
-        }
+        protected void paintComponent(Graphics graphics) {
+            graphics.setColor(new Color(114, 107, 107));
+            graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+            int [][]board=game.getGameBoard();
+
+            graphics.drawRect(0,0,97,97);
+            graphics.drawRect(0,100,97,97);
+            graphics.drawRect(0,200,97,97);
+            graphics.drawRect(0,300,97,97);
+
+            graphics.drawRect(100,0,97,97);
+            graphics.drawRect(100,100,97,97);
+            graphics.drawRect(100,200,97,97);
+            graphics.drawRect(100,300,97,97);
+
+            graphics.drawRect(200,0,97,97);
+            graphics.drawRect(200,100,97,97);
+            graphics.drawRect(200,200,97,97);
+            graphics.drawRect(200,300,97,97);
+
+            graphics.drawRect(300,0,97,97);
+            graphics.drawRect(300,100,97,97);
+            graphics.drawRect(300,200,97,97);
+            graphics.drawRect(300,300,97,97);
+
+            Toolkit t=Toolkit.getDefaultToolkit();
+            Image i1= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/0.jpg");
+            graphics.drawImage(i1,0,0,this);
+
+            Image i2= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/2.png");
+            graphics.drawImage(i2,0,100,this);
+
+            Image i3= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/4.png");
+            graphics.drawImage(i3,100,0,this);
+
+            Image i4= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/8.png");
+            graphics.drawImage(i4,100,300,this);
+
+            Image i5= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/16.png");
+            graphics.drawImage(i5,300,200,this);
+
+            Image i6= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/32.png");
+            graphics.drawImage(i6,97,97,this);
+
+            Image i7= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/64.png");
+            graphics.drawImage(i7,97,97,this);
+
+            Image i8= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/128.png");
+            graphics.drawImage(i8,97,97,this);
+
+            Image i9= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/256.png");
+            graphics.drawImage(i9,97,97,this);
+
+            Image i10= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/512.png");
+            graphics.drawImage(i10,97,97,this);
+
+            Image i11= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/1024.png");
+            graphics.drawImage(i11,0,300,this);
+
+            Image i12= t.getImage("2048.png");
+            graphics.drawImage(i12,97,97,this);
 
 
-        private void render(){
-            Graphics2D g = (Graphics2D) image.getGraphics();
-            g.setColor(Color.WHITE);
-            g.fillRect(0,0,WIDTH,HEIGHT);
-            //render board
-            g.dispose();
-            Graphics2D g2d=(Graphics2D) getGraphics();
-            g2d.drawImage(image,0,0,null);
-            g2d.dispose();
-        }
+            for(int y=1;y<5;y++){
+                for(int x=1;x<5;x++){
+                    int X =(8*x)+(64*(x-1));
+                    int Y =(8*y)+(64*(y-1));
 
-        @Override
-        public void run(){
-            int fps=0,updates=0;
-            long fpsTimer=System.currentTimeMillis();
-            double nsPerUpdate=100000000.0/60;
+                    int thisNum=board[y-1][x-1];
 
-            //last update time in nanosec
-            double then= System.nanoTime();
-            double unprocessed=0;
-
-            while (running) {
-                boolean shoulRender = false;
-                double now = System.nanoTime();
-                unprocessed+=(now-then)/nsPerUpdate;
-                then = now;
-
-                //update queue
-                while (unprocessed >= 1) {
-                    updates++;
-                    update();
-                    unprocessed--;
-                    shoulRender = true;
-                }
-
-                //render
-                if (shoulRender) {
-                    fps++;
-                    render();
-                    shoulRender = false;
-                } else {
-                    try {
-                        Thread.sleep(1);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                 }
             }
-            //fps timer
-
-            if(System.currentTimeMillis()-fpsTimer>1000){
-                System.out.println("%d fps %d updates"+ fps+ updates);
-                System.out.println();
-                fps=0;
-                updates=0;
-                fpsTimer+=1000;
-            }
-        }
-        public synchronized void start(){
-            if(running) return;
-            running=true;
-            game=new Thread(this,"game");
-            game.start();
-        }
-        public synchronized  void stop(){
-            if(!running) return;
-            running=false;
-            System.exit(0);
-        }
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e){
-
-        }
-        @Override
-        public void keyReleased(KeyEvent e){
-
-        }
-    }
-
-    */
-    class Tile {
-
-        public static final int WIDTH = 80;
-        public static final int HEIGHT = 80;
-        public static final int SLIDE_SPEED = 20;
-        public static final int ARC_WIDTH = 15;
-        public static final int ARC_HEIGHT = 15;
-
-        public int value;
-        private BufferedImage tileImage;
-        private Color background;
-        private int x;
-        private int y;
-        private Font font;
-
-        public Tile(int value, int x, int y) {
-            this.value = value;
-            this.x = x;
-            this.y = y;
-            tileImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
-            drawImage();
-        }
-        private void drawImage() {
-            Graphics2D g = (Graphics2D) tileImage.getGraphics();
         }
     }
 }

@@ -11,7 +11,14 @@ public class Game {
 
     public Game() {
         gameBoard = new int[4][4];
+        addComponent();
+        addComponent();
 
+    }
+
+
+    public int[][] getGameBoard(){
+        return gameBoard;
     }
     // diziyi yazdıran method olustur. public olsun her yerden erişilebilir.
     public void printMatris() {
@@ -38,7 +45,6 @@ public class Game {
                 gameBoard[randomSatir][randomSutun]=2;
                 //gameArrayList.add(gameBoard[randomSatir][randomSutun]);
             }
-             System.out.println("hello görlzz");
     }
 
     public void pushUp()
