@@ -4,10 +4,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.util.Hashtable;
+import java.util.Map;
 
-class GUI extends JPanel implements KeyListener,Runnable {
+class GUI extends JPanel {
 
     Game game;
+    GameBoard gb;
+    Map<Integer, ImageIcon> numberTiles;
 
     private static final long serialVersionUID = 1L;
     public static final int WIDTH = 440;
@@ -17,8 +21,9 @@ class GUI extends JPanel implements KeyListener,Runnable {
     public static final Font main = new Font("Consolas", Font.PLAIN, 40);
 
 
-    JFrame window;
+    NWindow window;
     GUI gui;
+
 
     //arkaplan rengi
     Color color = new Color(213, 209, 209);
@@ -31,10 +36,16 @@ class GUI extends JPanel implements KeyListener,Runnable {
     private long elapsed;
     private boolean set;
 
+    JLabel scoreL=new JLabel();
+
 
     public GUI() {
-       GameBoard gb = new GameBoard();
+       gb = new GameBoard();
        game=new Game();
+       window=new NWindow();
+       window.setFocusable(true);
+       window.addKeyListener(new NWindow());
+       //game=new Game();
 
       /*  Tile t=new Tile();
         t.setBounds(0,0,30,30);
@@ -42,12 +53,10 @@ class GUI extends JPanel implements KeyListener,Runnable {
 
        */
 
-        window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setFocusable(true);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        addKeyListener(this);
 
         JPanel northPanel = new JPanel();
         northPanel.setLayout(new GridLayout());
@@ -55,11 +64,11 @@ class GUI extends JPanel implements KeyListener,Runnable {
 
 
         JLabel gameLabel = new JLabel("2048", SwingConstants.CENTER); //merkeze 2048 geliyor.
-        gameLabel.setFont(new Font("Consolas", Font.BOLD, 20));
+        gameLabel.setFont(new Font("Ariel", Font.BOLD, 30));
         northPanel.add(gameLabel);
 
-        northPanel.add(new JLabel("<html>Score:<br>524</html>", SwingConstants.CENTER));
-        northPanel.add(new JLabel("<html>High Score:<br>22600</html>", SwingConstants.CENTER));
+        scoreL= new JLabel("<html><h2>Score<br>"+game.getScore()+"</h2></html>", SwingConstants.CENTER);
+        northPanel.add(scoreL);
 
         northPanel.setBackground(color);
 
@@ -83,33 +92,80 @@ class GUI extends JPanel implements KeyListener,Runnable {
         window.getContentPane().add(gb, BorderLayout.CENTER);
         window.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
         window.pack();
+
         window.setVisible(true);
     }
+    public class NWindow extends JFrame implements KeyListener {
 
-    @Override
-    public void keyTyped(KeyEvent e) {
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            game.printMatris();
+            int key=e.getKeyCode();
+
+            if(key==KeyEvent.VK_UP){
+                System.out.println("Pushing up.");
+                game.printMatris();
+                game.pushUp();
+                game.addComponent();
+                gb.repaint();
+                game.printMatris();
+                newScore();
+            }
+            else if(key==KeyEvent.VK_DOWN){
+                System.out.println("Pushing down");
+                game.printMatris();
+                game.pushDown();
+                game.addComponent();
+                gb.repaint();
+                game.printMatris();
+                newScore();
+            }
+            else if(key==KeyEvent.VK_LEFT){
+                System.out.println("Shifting left");
+                game.printMatris();
+                game.pushLeft();
+                game.addComponent();
+                gb.repaint();
+                game.addComponent();
+                newScore();
+            }
+            else if(key==KeyEvent.VK_RIGHT) {
+                System.out.println("Shifting right");
+                game.printMatris();
+                game.pushRight();
+                game.addComponent();
+                gb.repaint();
+                game.printMatris();
+                newScore();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-    }
-
-    @Override
-    public void run() {
+    public void newScore(){
+        scoreL.setText("<html><h2>Score<br>"+game.getScore()+"</h2></html>");
     }
 
     class GameBoard extends JPanel {
-
         protected void paintComponent(Graphics graphics) {
-            graphics.setColor(new Color(114, 107, 107));
+
+            numberTiles=new Hashtable<>();
+
+            graphics.setColor(new Color(136, 129, 129));
             graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
 
             graphics.setColor(Color.lightGray);
-            int [][]board=game.getGameBoard();
+            //int [][]board=game.getGameBoard();
+
 
             graphics.drawRect(0,0,97,97);
             graphics.drawRect(0,100,97,97);
@@ -132,49 +188,64 @@ class GUI extends JPanel implements KeyListener,Runnable {
             graphics.drawRect(300,300,97,97);
 
             Toolkit t=Toolkit.getDefaultToolkit();
-            Image i1= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/0.jpg");
-            graphics.drawImage(i1,0,0,this);
 
             Image i2= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/2.png");
-            graphics.drawImage(i2,0,100,this);
+            //graphics.drawImage(i2,200,100,this);
 
             Image i3= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/4.png");
-            graphics.drawImage(i3,100,0,this);
+            //graphics.drawImage(i3,100,0,this);
 
             Image i4= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/8.png");
-            graphics.drawImage(i4,100,300,this);
+            //graphics.drawImage(i4,100,300,this);
 
             Image i5= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/16.png");
-            graphics.drawImage(i5,300,200,this);
+            //graphics.drawImage(i5,300,200,this);
 
             Image i6= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/32.png");
-            graphics.drawImage(i6,97,97,this);
+            //graphics.drawImage(i6,100,100,this);
 
             Image i7= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/64.png");
-            graphics.drawImage(i7,97,97,this);
+            //graphics.drawImage(i7,0,200,this);
 
             Image i8= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/128.png");
-            graphics.drawImage(i8,97,97,this);
+            //graphics.drawImage(i8,200,0,this);
 
             Image i9= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/256.png");
-            graphics.drawImage(i9,97,97,this);
+            //graphics.drawImage(i9,0,300,this);
 
             Image i10= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/512.png");
-            graphics.drawImage(i10,97,97,this);
+            //graphics.drawImage(i10,300,0,this);
 
             Image i11= t.getImage("C:/Users/asus/Documents/GitHub/2048Game2048/2048/1024.png");
-            graphics.drawImage(i11,0,300,this);
+            //graphics.drawImage(i11,200,300,this);
 
             Image i12= t.getImage("2048.png");
-            graphics.drawImage(i12,97,97,this);
+            //graphics.drawImage(i12,97,97,this);
+
+            numberTiles.put(2, new ImageIcon(i2));
+            numberTiles.put(4, new ImageIcon(i3));
+            numberTiles.put(8, new ImageIcon(i4));
+            numberTiles.put(16, new ImageIcon(i5));
+            numberTiles.put(32, new ImageIcon(i6));
+            numberTiles.put(64, new ImageIcon(i7));
+            numberTiles.put(128, new ImageIcon(i8));
+            numberTiles.put(256, new ImageIcon(i9));
+            numberTiles.put(512, new ImageIcon(i10));
+            numberTiles.put(1024, new ImageIcon(i11));
+            numberTiles.put(2048, new ImageIcon(i12));
 
 
-            for(int y=1;y<5;y++){
-                for(int x=1;x<5;x++){
-                    int X =(8*x)+(64*(x-1));
-                    int Y =(8*y)+(64*(y-1));
+            int[][] board = game.getGameBoard();
+            for(int y=1 ; y<5; y++){
+                for(int x=1; x<5; x++){
+                    int X= (x)+(99*(x-1));
+                    int Y= (y)+(99*(y-1));
 
-                    int thisNum=board[y-1][x-1];
+                    int thisNumber= board[y-1][x-1];
+                    if(numberTiles.containsKey(thisNumber)){
+                        ImageIcon thisTile= numberTiles.get(thisNumber);
+                        thisTile.paintIcon(this,graphics,X,Y);
+                    }
 
                 }
             }
@@ -182,3 +253,8 @@ class GUI extends JPanel implements KeyListener,Runnable {
     }
 }
 
+
+
+
+
+//canvas ile haraket ettirme.
